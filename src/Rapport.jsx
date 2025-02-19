@@ -76,7 +76,7 @@ const [date,setdate]=useState("")
  
 
 
-  // Filter visites based on selected school
+  // Filter ecoles relying on the school name
   const filteredVisites = filter
     ? visites.filter((visite) => visite.idecole === parseInt(filter))
     : visites;
@@ -121,7 +121,7 @@ function CustomAlert() {
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
             <thead className="bg-blue-600 text-white">
               <tr>
-                <th className="py-3 px-4 text-left">الملاحظات</th>
+                <th className="py-3 px-4 text-left"> تاريخ الزيارة</th>
                 <th className="py-3 px-4 text-left">اسم المدرسة</th>
                 <th className="py-3 px-4 text-left">التفاصيل</th>
                 <th className="py-3 px-4 text-left">Actions</th>
@@ -131,7 +131,7 @@ function CustomAlert() {
               {filteredVisites.length > 0 ? (
                 filteredVisites.map((visite) => (
                   <tr key={visite.idvisite} className="hover:bg-gray-100">
-                    <td className="border-t py-3 px-4">{visite.observation} ({visite.datevisite.split("T")[0]})</td>
+                    <td className="border-t py-3 px-4">({visite.datevisite.split("T")[0]})</td>
                     <td className="border-t py-3 px-4">
                       <Link className='text-blue-500 font-bold' to={`/school/${visite.idecole}`}>
                         {schools.find(s => s.idecole === visite.idecole)?.nomecole || "Unknown School"}
@@ -149,6 +149,7 @@ function CustomAlert() {
                       <button
                         onClick={() => handleDelete(visite.idvisite) }
                         className="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-500"
+                        
                       >
                         <Trash2 />
                       </button>

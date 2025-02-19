@@ -90,7 +90,7 @@ const navigate = useNavigate();
   };
     //////////alert costumization :
     const customToastStyle = {
-      background: 'green', // Dark background
+      background: '#53f00b', // Dark background
       color: 'white', // Yellow text
       fontSize: '16px',
       borderRadius: '10px',

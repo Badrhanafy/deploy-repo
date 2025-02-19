@@ -102,10 +102,8 @@ const SchoolsList = () => {
             <div className="relative bg-gradient-to-br from-blue-400 to-indigo-200 text-white py-4 px-4 sm:px-6 lg:px-4 overflow-hidden">
                 <div className="absolute inset-0 opacity-20 bg-pattern"></div>
                 <div className="max-w-3xl mx-auto text-center relative z-10">
-                    <h1 id="title2" className="text-4xl font-extrabold mb-6 drop-shadow-lg">مصلحة التخطيط</h1>
-                    <p id="message" className="text-xl mb-8 text-blue-100 max-w-xl mx-auto ">
-                        ابحث عن المدارس بناءً على المدينة والنوع والحالة
-                    </p>
+                    <h1 id="title2" className="text-4xl font-extrabold mb-6 drop-shadow-lg">  مصلحة التخطيط و الخريطة المدرسية</h1>
+                    
 
                     <div className="bg-white rounded-xl shadow-2xl p-6 ">
                         <div className="relative mb-4 ">
@@ -127,7 +125,7 @@ const SchoolsList = () => {
                                 className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
                             >
                                 <FilterIcon className="h-5 w-5" />
-                                {showFilters ? "إخفاء الفلاتر" : "عرض الفلاتر"}
+                                {showFilters ? " بحث معمق" : " بحث معمق"}
                             </button>
                         </div>
 
@@ -258,9 +256,9 @@ const SchoolsList = () => {
                                             segments={5}
                                             width={150}
                                             height={120}
-                                            needleColor="red"
-                                            startColor="green"
-                                            endColor="red"
+                                            needleColor="orange"
+                                            startColor="#ff0000"
+                                            endColor="#53f00b"
                                             textColor="gray"
                                         />
                                     </div>
@@ -271,7 +269,7 @@ const SchoolsList = () => {
                                             to={`/school/${school.idecole}`}
                                             className="w-full text-center bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors duration-300 shadow-md"
                                         >
-                                            تفاصيل المدرسة
+                                            تفاصيل المؤسسة
                                         </Link>
                                         <button
                                             onClick={() => navigate(`/TaskSelector/${school.idecole}`)}

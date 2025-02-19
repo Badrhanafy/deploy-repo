@@ -127,7 +127,7 @@ else{
     naviaget("/")
   }
 
-},[tasks]);
+},[formData.statut,tasks]);
 
 
 
@@ -267,12 +267,12 @@ if (!school) return <div>Loading...</div>;
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <div className="bg-white rounded-lg shadow p-6 text-end">
-                        <h3 className="text-xl font-semibold text-gray-900 mb-4" id="message">معلومات المدرسة</h3>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-4" id="message">معلومات المؤسسة </h3>
                         <div className="space-y-3">
                             <p className="text-gray-700">{school.adress} : <span className="font-medium" id="title2">العنوان</span> </p>
                             <p className="text-gray-700">   {school.statut} : <span className="font-medium" id="title2">الحالة</span></p>
                             <p className="text-gray-700">  {school.pourcentage}%   :    <span className="font-medium" id="title2">التقدم</span> </p>
-                            <p className="text-gray-700">  <span className="font-medium" id="title2">النوع</span> : {school.typeecole} </p>
+                            <p className="text-gray-700">  <span className="font-medium" id="title2">سلك المؤسسة</span> : {school.typeecole} </p>
                         </div>
                         <div className="mt-6 space-x-4">
                             <button
@@ -337,12 +337,12 @@ if (!school) return <div>Loading...</div>;
                 {/* Modal for editing school information */}
                 <Modal show={showModal} onHide={handleCloseModal} className="text-end">
                     <Modal.Header closeButton>
-                        <Modal.Title>تعديل معلومات المدرسة</Modal.Title>
+                        <Modal.Title>تعديل معلومات المؤسسة </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={handleFormSubmit}>
                             <Form.Group controlId="formNomecole">
-                                <Form.Label id="title2">اسم المدرسة</Form.Label>
+                                <Form.Label id="title2">اسم المؤسسة </Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="nomecole"
@@ -382,13 +382,14 @@ if (!school) return <div>Loading...</div>;
                                 />
                             </Form.Group>
                             <Form.Group controlId="formTypeecole">
-                                <Form.Label id="title2">نوع المدرسة</Form.Label>
+                                <Form.Label id="title2"> سلك المؤسسة </Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="typeecole"
                                     value={formData.typeecole}
                                     onChange={handleInputChange}
                                     required
+                                    className="mb-8"
                                 />
                             </Form.Group>
                             <Button variant="primary" type="submit">

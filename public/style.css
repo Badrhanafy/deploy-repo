@@ -37,7 +37,7 @@ body {
   font-family: "rok3a";
   src: url('rok3a.ttf');
 }
-#title2{
+#title2,#item{
   font-family: "f2";
 }
 #title{
@@ -52,6 +52,9 @@ body {
 }
 
 
+/* body{
+  color:rgba(112, 110, 110, 0.473)
+} */
 
 
 

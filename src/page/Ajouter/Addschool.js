@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar";
-import { ImageIcon, SaveIcon } from "lucide-react";
+import { ImageIcon, SaveIcon,University } from "lucide-react";
 import Footer from "../Footer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -73,8 +73,8 @@ const AddSchool = () => {
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="bg-blue-300 py-3  px-8">
             <h2 className="text-3xl font-bold text-white text-center flex items-center justify-center gap-4">
-              <ImageIcon className="w-10 h-10" />
-              إضافة مدرسة جديدة
+              <University className="w-10 h-10" />
+              إضافة مؤسسة جديدة 
             </h2>
           </div>
 
@@ -85,7 +85,7 @@ const AddSchool = () => {
                 <div className="grid grid-cols-1 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      اسم المدرسة
+                      اسم المؤسسة
                     </label>
                     <input
                       type="text"
@@ -93,7 +93,7 @@ const AddSchool = () => {
                       className="w-full px-4 py-2 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                       value={formData.nomecole}
                       onChange={handleChange}
-                      placeholder="أدخل اسم المدرسة"
+                      placeholder="أدخل اسم المؤسسة"
                       required
                     />
                   </div>
@@ -114,7 +114,7 @@ const AddSchool = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      النوع
+                      السلك
                     </label>
                     <select
                       name="type"
@@ -123,7 +123,7 @@ const AddSchool = () => {
                       onChange={handleChange}
                       required
                     >
-                      <option value="">اختر نوع المؤسسة</option>
+                      <option value="">اختر سلك المؤسسة</option>
                       <option value="ابتدائية">ابتدائية</option>
                       <option value="اعدادية">اعدادية</option>
                       <option value="ثانوية">ثانوية</option>
@@ -154,7 +154,7 @@ const AddSchool = () => {
                       rows="3"
                       value={formData.adress}
                       onChange={handleChange}
-                      placeholder="أدخل عنوان المدرسة"
+                      placeholder="أدخل عنوان المؤسسة"
                       required
                     ></textarea>
                   </div>
@@ -180,7 +180,7 @@ const AddSchool = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      صورة المدرسة
+                      صورة المؤسسة
                     </label>
                     <input
                       type="file"
@@ -196,7 +196,7 @@ const AddSchool = () => {
                   className="w-full bg-gradient-to-r from-blue-400 to-indigo-300 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-indigo-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
                 >
                   <SaveIcon className="w-5 h-5" />
-                  إضافة مدرسة
+                   تسجيل المؤسسة
                 </button>
                 <ToastContainer />
               </form>

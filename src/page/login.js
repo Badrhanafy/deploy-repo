@@ -29,7 +29,7 @@ const Login = () => {
         <div
             className="min-h-screen flex items-center justify-center bg-gray-50"
             style={{
-                backgroundImage: "url('backgroundlogin.jpg')",
+                backgroundImage: "url('img/img2.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",

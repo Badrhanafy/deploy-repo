@@ -115,9 +115,7 @@ export default function VisiteDetail() {
             {visite.length > 0 ? (
               visite.map((visit) => (
                 <div key={visit.idvisite} className="mb-4 text-end" style={{lineHeight:"7vh"}} >
-                  <p className="text-gray-600">
-                    <strong className="strongs">رقم الزيارة</strong> &ensp;:&ensp; {visit.idvisite}
-                  </p>
+                  
                   
                   <p className="text-gray-600">
                     <strong className="strongs">تاريخ الزيارة &ensp;</strong> &ensp;:&ensp;{visit.datevisite.split('T')[0]}

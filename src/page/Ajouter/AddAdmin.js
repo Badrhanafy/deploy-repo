@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../navbar";
-import { useNavigate } from "react-router-dom";
-import { UserPlusIcon, LockIcon, AtSignIcon, Eye } from "lucide-react";
-
+import { data, useNavigate } from "react-router-dom";
+import { UserPlusIcon, LockIcon, AtSignIcon, Eye,UserRoundMinus } from "lucide-react";
+import { ToastContainer, toast } from 'react-toastify';
+import Swal from "sweetalert2";
 const AddAdmin = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -15,12 +16,13 @@ const AddAdmin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [admins, setAdmins] = useState([]);
-
+  const token = sessionStorage.getItem('token');
+  
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    if (!token) {
+   /*  if (!token) {
       navigate("/");
-    }
+    } */
 
     const fetchAdmins = async () => {
       try {
@@ -32,7 +34,7 @@ const AddAdmin = () => {
     };
 
     fetchAdmins();
-  }, [navigate]);
+  }, [admins]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,12 +48,57 @@ const AddAdmin = () => {
       setSuccessMessage(response.data.message);
       setErrorMessage("");
       setFormData({ fullname: "", email: "", pwd: "" });
-      navigate("/");
+      
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "An error occurred");
       setSuccessMessage("");
     }
   };
+  
+   
+  
+  
+ /*  const getIdAdminFromToken = () => {
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.idadmin;
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        return null;
+      }
+    }
+    return null;
+  };
+const idAdmin = getIdAdminFromToken; */
+  function showConfirm(id) {
+    Swal.fire({
+      title: `؟ " ${admins.find((a)=>{return a.idadmin===id}).fullname} " حذف`,
+      text: "هل أنت متأكد من تسجيل الخروج ؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "! نعم",
+      cancelButtonText: "لا",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        Swal.fire("الحذف ناجح !  ", "تمت أزالة الحساب بنجاح", "success");
+        const res = axios.delete(`http://localhost:3999/remove/admin/${id}`).then(
+        
+        )
+        
+        setTimeout(() => {
+          toast.success("تم  الحذف بنجاح   ", {
+            position: "bottom-right",
+            autoClose: 3000,
+            style: { background: "green", color: "#fff", fontWeight: "bold", fontFamily: "f2" },
+        })
+        }, 1500);
+      }
+    });
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -59,7 +106,7 @@ const AddAdmin = () => {
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Admin Form Section */}
         <div className="w-1/2 p-6 flex flex-col justify-center">
-          <div className="bg-blue-300 p-6 text-center">
+          <div className="bg-blue-300 p-6 text-center rounded-lg">
             <div className="flex items-center justify-center gap-4">
               <UserPlusIcon className="w-10 h-10 text-white" />
               <h2 className="text-3xl font-bold text-white " id="title">أضف أدمين جديد</h2>
@@ -129,6 +176,7 @@ const AddAdmin = () => {
               >
                 {showPassword ? <Eye /> : <Eye />}
               </button>
+              <ToastContainer />
             </div>
 
             <button
@@ -142,17 +190,28 @@ const AddAdmin = () => {
 
         {/* Scrollable Admin List Section */}
         <div className="w-1/2 p-6 bg-gray-100 overflow-y-auto max-h-screen">
+          
           <h2 className="text-2xl font-bold mb-4 text-end" id="title2">مجمل الأدمينز</h2>
+          
           <ul className="space-y-2">
             {admins.map((admin) => (
               <li key={admin.id} className="p-4 bg-white rounded-lg shadow">
                 <p className="font-semibold">{admin.fullname}</p>
                 <p className="text-gray-500">{admin.email}</p>
+                <button onClick={()=>{
+                    showConfirm(parseInt(admin.idadmin))
+                }}
+                style={{float:"right",position:"relative",bottom:"2vh"}}
+                className="  rounded-lg p-1 text-white font-bold mt-0"
+                >
+                 <span className="text-red-400"> <UserRoundMinus /></span>
+                </button>
               </li>
             ))}
           </ul>
         </div>
       </div>
+      
     </div>
   );
 };

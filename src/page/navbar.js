@@ -3,15 +3,64 @@ import { NavLink, useNavigate } from "react-router-dom";
 import dpLaayoune from './img/academilogo.png';
 import { HomeIcon, UserPlusIcon, School, BookOpen,LogOut } from "lucide-react";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { useEffect } from "react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  /* const [dropdownOpen, setDropdownOpen] = useState(false); */
   const [showMessage, setShowMessage] = useState(false);
   const menuItems = [
     { path: "/Schools", label: "الرئيسية", icon: <HomeIcon /> },
-    { path: "/Addschool", label: "أضف مدرسة", icon: <School /> },
+    { path: "/Addschool", label: "أضف مؤسسة", icon: <School /> },
   ];
+  const token = sessionStorage.getItem("token");
   const navigate = useNavigate()
+  const [admin,setAdmin]=useState({})
+  const getIdAdminFromToken = () => {
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.idadmin;
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        return null;
+      }
+    }
+    return null;
+  };
+  useEffect(() => {
+    const idAdmin = getIdAdminFromToken();
+    const fetchAdminData = async () => {
+        if (!idAdmin) return; // Prevent fetching if no id
+        try {
+            const response = await axios.get(`http://localhost:3999/admin/${idAdmin}`);
+            setAdmin(response.data); // Store the data in state
+        } catch (error) {
+            console.error('Error fetching admin:', error);
+        }
+    };
+
+    fetchAdminData();
+}, []);
+
+if (admin.isSupper==="no") {
+  /* document.getElementById("link").style.backgroundColor="green" */
+  const link = document.getElementById("item");
+  const icon = document.getElementById("icon");
+    link.removeAttribute("href"); // Remove link functionality
+    
+    link.style.color = "gray"; // Change color to indicate it's disabled
+    link.style.cursor = "not-allowed"; // Show "disabled" cursor
+    link.style.pointerEvents = "none"; // Disable clicking
+   
+   
+    
+    
+    
+
+}
+
+
   //////
   function showConfirm() {
     Swal.fire({
@@ -36,6 +85,7 @@ const Navbar = () => {
       }
     });
 }
+
   return (
     <nav className="bg-gradient-to-r from-blue-100 to-indigo-300 fixed top-0 w-full z-50 shadow-lg"
     style={{
@@ -86,37 +136,19 @@ const Navbar = () => {
           >
             <BookOpen />  <span className="ml-2">لائحة التقارير</span>
           </NavLink>
-          <div 
-            className="relative"
-            onMouseEnter={() => setDropdownOpen(true)} 
-            onMouseLeave={() => setDropdownOpen(false)}
+         
+          <NavLink
+            to="/AddAdmin"
+            id="item"
+            disabled
+            className={({ isActive }) =>
+              isActive
+                ? "text-white font-semibold flex items-center justify-center px-4 py-2 rounded-md bg-blue-700 shadow-lg transform transition-all duration-300"
+                : "text-white hover:text-blue-300 flex items-center justify-center px-4 py-2 rounded-md transition-all duration-300 hover:scale-105"
+            }
           >
-            <button
-              className="text-white flex items-center justify-center px-4 py-2 rounded-md hover:text-blue-300 transition-all duration-300"
-            >
-              <UserPlusIcon className="mr-2" />  
-            </button>
-            {dropdownOpen && (
-              <div className="absolute left-0 z-10 mt-0 w-48 bg-white rounded-md shadow-lg">
-                <NavLink
-                  to="/AddAdmin"
-                  id="title"
-                  className="block text-end px-4 py-2 text-black hover:bg-blue-100 transition duration-300"
-                  onMouseEnter={() => setDropdownOpen(true)} // Keep dropdown open
-                >
-                  أضف أدمين
-                </NavLink>
-                <NavLink
-                  to="/AjouterUser"
-                  id="title"
-                  className="block text-end px-4 py-2 text-black hover:bg-blue-100 transition duration-300"
-                  onMouseEnter={() => setDropdownOpen(true)} // Keep dropdown open
-                >
-                  أضف مستخدم
-                </NavLink>
-              </div>
-            )}
-          </div>
+            <UserPlusIcon id="icon"/>  <span className="ml-2"> أضف أدمين</span>
+          </NavLink>
                    {/* Log-out button with hover message */}
                    <div className="relative">
             <button
@@ -175,30 +207,19 @@ const Navbar = () => {
             ))}
             {/* Mobile Dropdown for Add Admin and Add User */}
             <div className="relative">
-              <button
-                className="text-white block px-4 py-2 rounded-md hover:bg-blue-400 transition duration-300 w-full text-left"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <UserPlusIcon className="mr-2" /> أضف مستخدم
-              </button>
-              {dropdownOpen && (
+              
+              
                 <div className="absolute left-0 z-10 mt-0 w-full bg-white rounded-md shadow-lg">
                   <NavLink
                     to="/AddAdmin"
                     className="block px-4 py-2 text-black hover:bg-blue-100 transition duration-300"
-                    onClick={() => setDropdownOpen(false)}
+                    
                   >
                     أضف أدمين
                   </NavLink>
-                  <NavLink
-                    to="/AjouterUser"
-                    className="block px-4 py-2 text-black hover:bg-blue-100 transition duration-300"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    أضف مستخدم
-                  </NavLink>
+                 
                 </div>
-              )}
+              
             </div>
           </div>
            {/* Log-out button with hover message */}
