@@ -7,7 +7,8 @@ import html2pdf from "html2pdf.js";
 export default function VisiteDetail() {
   const { idvisite, idecole } = useParams();
   const [visite, setVisite] = useState([]);
-  const [admin, setAdmin] = useState({});
+
+
   const [ecole, setEcole] = useState({});
   const [ecoleImage, setEcoleImage] = useState(null);
   const token = sessionStorage.getItem("token");
@@ -31,14 +32,17 @@ export default function VisiteDetail() {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const [resVisite, resEcole] = await Promise.all([
+        const [resVisite, resEcole,resAdmin] = await Promise.all([
           axios.get(`http://localhost:3999/raportsget/${idvisite}`),
           axios.get(`http://localhost:3999/school/${idecole}`),
+          axios.get(`http://localhost:3999/visite/${idvisite}`),
         ]);
-
+       
         setVisite(resVisite.data);
         setEcole(resEcole.data);
-
+        
+        
+        
         // Fetch the image as a Blob and convert to Base64
         if (resEcole.data.image) {
           const imageResponse = await axios.get(`http://localhost:3999${resEcole.data.image}`, {
@@ -51,10 +55,7 @@ export default function VisiteDetail() {
           reader.readAsDataURL(imageResponse.data);
         }
 
-        if (idadmin) {
-          const resAdmin = await axios.get(`http://localhost:3999/admin/${idadmin}`);
-          setAdmin(resAdmin.data);
-        }
+
       } catch (error) {
         console.error("Error fetching details:", error);
       }
@@ -127,10 +128,10 @@ export default function VisiteDetail() {
                      
                   </p>
                   <p className="text-gray-600" >
-             {admin.fullname || "N/A"} : <strong className="strongs">الاسم الكامل</strong>
+             {visit.fullname || "N/A"} : <strong className="strongs">الاسم الكامل</strong>
           </p>
           <p className="text-gray-600">
-          {admin.email || "N/A"} : <strong className="strongs"> البريد الالكتروني</strong>
+          {visit.email || "N/A"} : <strong className="strongs"> البريد الالكتروني</strong>
           </p>
           <div className="rounded-xl p-6 mt-8 bg-gradient-to-br from-blue-50 to-blue-100 text-end" style={{lineHeight:"6vh"}}>
           <h5 className="text-lg font-semibold mb-4 text-gray-700 bg-emerald-300 px-1"> نص التقرير</h5>
@@ -177,6 +178,7 @@ export default function VisiteDetail() {
           display: none !important;
         }
       `}</style>
+     
     </div>
   );
 }

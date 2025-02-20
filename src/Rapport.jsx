@@ -131,7 +131,7 @@ function CustomAlert() {
               {filteredVisites.length > 0 ? (
                 filteredVisites.map((visite) => (
                   <tr key={visite.idvisite} className="hover:bg-gray-100">
-                    <td className="border-t py-3 px-4">({visite.datevisite.split("T")[0]})</td>
+                    <td className="border-t py-3 px-4">{visite.datevisite.split("T")[0]}</td>
                     <td className="border-t py-3 px-4">
                       <Link className='text-blue-500 font-bold' to={`/school/${visite.idecole}`}>
                         {schools.find(s => s.idecole === visite.idecole)?.nomecole || "Unknown School"}
