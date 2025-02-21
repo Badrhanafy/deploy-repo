@@ -95,8 +95,8 @@ if (admin.isSupper==="no") {
       
     }}
     >
-      <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        {/* Logo */}
+      <div className="container mx-auto flex items-center justify-between lg:h-16 md:h-16 md:text-blue-500 sm:h-10 px-4 ">
+        
         <NavLink
           to="/Schools"
           id="title2"
@@ -138,17 +138,19 @@ if (admin.isSupper==="no") {
           </NavLink>
          
           <NavLink
-            to="/AddAdmin"
-            id="item"
-            disabled
-            className={({ isActive }) =>
-              isActive
-                ? "text-white font-semibold flex items-center justify-center px-4 py-2 rounded-md bg-blue-700 shadow-lg transform transition-all duration-300"
-                : "text-white hover:text-blue-300 flex items-center justify-center px-4 py-2 rounded-md transition-all duration-300 hover:scale-105"
-            }
-          >
-            <UserPlusIcon id="icon"/>  <span className="ml-2"> أضف أدمين</span>
-          </NavLink>
+          to="/AddAdmin"
+          className={({ isActive }) =>
+            `flex items-center justify-center px-4 py-2 rounded-md transition-all duration-300 ${
+              isActive ? 'bg-blue-700 text-white font-semibold shadow-lg transform' : 
+              admin.isSupper === "no" ? 
+                'opacity-60 cursor-not-allowed pointer-events-none text-gray-300' : 
+                'text-white hover:text-blue-300 hover:scale-105'
+            }`
+          }
+        >
+          <UserPlusIcon className={admin.isSupper === "no" ? "text-gray-300" : ""} />
+          <span className="ml-2">أضف أدمين</span>
+        </NavLink>
                    {/* Log-out button with hover message */}
                    <div className="relative">
             <button
@@ -168,79 +170,87 @@ if (admin.isSupper==="no") {
 
         </div>
    
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex items-center justify-center p-2 text-white hover:bg-blue-400 focus:outline-none transition duration-300"
-          >
-            <span className="sr-only">Open main menu</span>
-            {!isOpen ? (
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            ) : (
-              <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            )}
-          </button>
-        </div>
+       
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-gradient-to-r from-blue-500 to-indigo-600">
-          <div className="flex flex-col space-y-2 p-4">
+      {/* Mobile Menu Button */}
+      <div className="md:hidden float-end " >
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            style={{zIndex:"1000",position:"relative",bottom:"7vh",right:"3vh"}}
+            className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-400 focus:outline-none transition-all duration-300"
+          >
+            <span className="sr-only">Open main menu</span>
+            <div className={`space-y-2 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+              <span className={`block h-0.5 w-8 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+              <span className={`block h-0.5 w-8 bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`block h-0.5 w-8 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+            </div>
+          </button>
+        </div>
+      
+
+      {/* Mobile Menu with Animations */}
+      <div style={{zIndex:"-1"}} className={`md:hidden absolute w-full overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="bg-gradient-to-r from-blue-500 to-indigo-300 pt-2 pb-4">
+          <div className="flex flex-col space-y-4 px-4 text-white">
             {menuItems.map((item, index) => (
               <NavLink
                 key={index}
                 to={item.path}
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-white block px-4 py-2 rounded-md bg-blue-700 shadow-lg transition duration-300"
-                    : "text-white block px-4 py-2 rounded-md hover:bg-blue-400 transition duration-300"
+                  `flex items-center px-4 py-3 rounded-lg transform transition-all duration-300 ${
+                    isActive ? 'bg-blue-700 scale-105' : 'hover:bg-blue-400 hover:scale-105'
+                  }`
                 }
               >
-                {item.icon} <span className="ml-2">{item.label}</span>
+                {item.icon}
+                <span className="ml-2">{item.label}</span>
               </NavLink>
             ))}
-            {/* Mobile Dropdown for Add Admin and Add User */}
-            <div className="relative">
-              
-              
-                <div className="absolute left-0 z-10 mt-0 w-full bg-white rounded-md shadow-lg">
-                  <NavLink
-                    to="/AddAdmin"
-                    className="block px-4 py-2 text-black hover:bg-blue-100 transition duration-300"
-                    
-                  >
-                    أضف أدمين
-                  </NavLink>
-                 
-                </div>
-              
+
+            <NavLink
+              to="/Rapport"
+              className={({ isActive }) =>
+                `flex items-center px-4 py-3 rounded-lg transform transition-all duration-300 ${
+                  isActive ? 'bg-blue-700 scale-105' : 'hover:bg-blue-400 hover:scale-105'
+                }`
+              }
+            >
+              <BookOpen />
+              <span className="ml-2">لائحة التقارير</span>
+            </NavLink>
+
+            <NavLink
+              to="/AddAdmin"
+              id="item"
+              className={`flex items-center px-4 py-3 rounded-lg transform transition-all duration-300 ${
+                admin.isSupper === "no" ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-400 hover:scale-105'
+              }`}
+            >
+              <UserPlusIcon id="icon" />
+              <span className="ml-2"> أضف أدمين</span>
+            </NavLink>
+
+            <div className="pt-4 border-t border-blue-300">
+              <button
+                onClick={showConfirm}
+                onMouseEnter={() => setShowMessage(true)}
+                onMouseLeave={() => setShowMessage(false)}
+                className="w-full flex justify-center items-center px-4 py-3 bg-red-600 rounded-lg hover:bg-red-700 transform transition-all duration-300 hover:scale-105"
+              >
+                <LogOut />
+                <span className="ml-2">تسجيل الخروج</span>
+              </button>
+              {showMessage && (
+                <p className="mt-2 text-sm text-red-200 text-center animate-pulse">
+                  تسجيل الخروج
+                </p>
+              )}
             </div>
           </div>
-           {/* Log-out button with hover message */}
-           <div className="relative">
-            <button
-              className="btn btn-danger ml-6"
-              onClick={showConfirm}
-              onMouseEnter={() => setShowMessage(true)}
-              onMouseLeave={() => setShowMessage(false)}
-            >
-              <LogOut />
-            </button>
-            {showMessage && (
-              <p className="absolute left-1/2 transform -translate-x-1/2 mt-2 text-sm text-red-500 bg-white p-2 rounded-md shadow-lg">
-                تسجيل الخروج
-              </p>
-            )}
-          </div>
-
         </div>
-      )}
+      </div>
     </nav>
   );
 };

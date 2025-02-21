@@ -124,10 +124,10 @@ const SchoolDetails = () => {
 }
 
 else{
-    naviaget("/")
+    naviaget("/");
   }
 
-},[formData.statut,tasks]);
+},[idecole]);
 
 
 

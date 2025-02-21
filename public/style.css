@@ -50,6 +50,12 @@ body {
 .strongs{
   font-family: "f2";
 }
+input[type="range"] {
+  direction: rtl;
+}
+input[type="range"] {
+  transform: scaleX(-1);
+}
 
 
 /* body{
@@ -82,4 +88,8 @@ body {
                 border-color: transparent;
             }
         }
-
+  
+#rangevalue:hover{
+  opacity: 100%;
+  transition: all 1s;
+}

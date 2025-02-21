@@ -3,11 +3,12 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Navbar from "./page/navbar";
 import html2pdf from "html2pdf.js";
-
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css"; // Import default styles
 export default function VisiteDetail() {
   const { idvisite, idecole } = useParams();
   const [visite, setVisite] = useState([]);
-
+   const [admin,setAdmin] = useState([])
 
   const [ecole, setEcole] = useState({});
   const [ecoleImage, setEcoleImage] = useState(null);
@@ -40,7 +41,7 @@ export default function VisiteDetail() {
        
         setVisite(resVisite.data);
         setEcole(resEcole.data);
-        
+        setAdmin(resAdmin)
         
         
         // Fetch the image as a Blob and convert to Base64
@@ -63,8 +64,8 @@ export default function VisiteDetail() {
 
     fetchDetails();
   }, [idvisite, idecole, idadmin]);
-
-  const downloadPDF = () => {
+ 
+    const downloadPDF = () => {
     const element = pdfRef.current;
 
     // Add a class to hide buttons
@@ -82,7 +83,8 @@ export default function VisiteDetail() {
   };
 
   return (
-    <div style={{position:"relative",top:"-13vh"}} className="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen mt-16">
+    <center>
+         <div style={{position:"relative",top:"-13vh",width:"1000px"}} className="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen mt-16  ">
       <Navbar />
       <div className="container mx-auto px-6 py-8" ref={pdfRef}>
         {/* Header Section */}
@@ -125,8 +127,9 @@ export default function VisiteDetail() {
                     {ecole.nomecole || "N/A"}&ensp; :&ensp;&ensp;<strong className="strongs">اسم المدرسة</strong>
                   </p>
                   <p className="text-gray-600">
-                     
+                    {visit.pourcentage || "N/A"} %&ensp; :&ensp;&ensp;<strong className="strongs">نسبة تقدم الأشغال</strong>
                   </p>
+                  
                   <p className="text-gray-600" >
              {visit.fullname || "N/A"} : <strong className="strongs">الاسم الكامل</strong>
           </p>
@@ -178,7 +181,14 @@ export default function VisiteDetail() {
           display: none !important;
         }
       `}</style>
+     {/*  {
+        console.log(visite[0].pourcentage)
+        
+        
+      } */}
      
     </div>
+    </center>
   );
+  
 }
