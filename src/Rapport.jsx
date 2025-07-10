@@ -79,7 +79,11 @@ export default function Rapport() {
   const filteredVisites = filter
     ? sortedVisites().filter((visite) => visite.idecole === parseInt(filter))
     : sortedVisites();
-
+  for (let index = 0; index < schools.length; index++) {
+     const element = schools[index].idecole;
+    console.log(element.length);
+    
+  }
   return (
     <div className="bg-gradient-to-r from-indigo-100 to-sky-100 min-h-screen py-12">
       <Navbar />
@@ -93,7 +97,7 @@ export default function Rapport() {
           <option value=""> الكل</option>
           {schools.length > 0 ? (
             schools.map((school, i) => (
-              <option value={school.idecole} key={i}>{school.nomecole}</option>
+              <option value={school.idecole} key={i}>{school.nomecole} </option>
             ))
           ) : (
             <option value="">No Schools Available</option>

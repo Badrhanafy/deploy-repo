@@ -40,11 +40,14 @@ const Login = () => {
         >
             <div
              style={{
-                backdropFilter:"blur(35px)"
+                backdropFilter:"blur(35px)",
+                /* position:'relative',
+                left:"75vh",
+                bottom:"6vh" */
              }}
             className=" border-2 border-blue-500 max-w-md w-full space-y-8 bg-white-50 p-6 rounded-lg shadow-md  backdrop-blur-sm">
                 <img src="academilogo.png"  alt="logo"/>
-                <center><span className="text-center text-white font-bold">Log-in</span></center>
+                <center className=" "><span className="text-center text-white font-bold">Log-in</span></center>
                 <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                     <div>
                         <label className="block text-sm  text-white font-bold">

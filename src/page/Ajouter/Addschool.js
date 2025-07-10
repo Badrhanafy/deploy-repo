@@ -59,9 +59,17 @@ const AddSchool = () => {
         autoClose: 3000,
         style: { background: "green", color: "#fff", fontWeight: "bold" ,fontFamily:"f1"},
       });
-      navigate("/Schools");
+     /*  navigate("/Schools"); */
+     setTimeout(()=>{
+      navigate("/schools")
+     },3005)
     } catch (error) {
       console.error("Error adding school:", error);
+      toast.warn("!    هنالك خطأ ما     ", {
+        position: "bottom-right",
+        autoClose: 3000,
+        style: { background: "gray", color: "gold", fontWeight: "bold" ,fontFamily:"f1"},
+      });
     }
   };
 
@@ -138,7 +146,7 @@ const AddSchool = () => {
                       type="text"
                       name="statut"
                       className="w-full px-4 py-2 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                      value={formData.statut}
+                      value={"en cours"}
                       onChange={handleChange}
                       required
                     />

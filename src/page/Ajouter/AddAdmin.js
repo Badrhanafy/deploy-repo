@@ -20,9 +20,9 @@ const AddAdmin = () => {
   
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-   /*  if (!token) {
+    if (!token) {
       navigate("/");
-    } */
+    }
 
     const fetchAdmins = async () => {
       try {
@@ -73,8 +73,8 @@ const AddAdmin = () => {
 const idAdmin = getIdAdminFromToken; */
   function showConfirm(id) {
     Swal.fire({
-      title: `؟ " ${admins.find((a)=>{return a.idadmin===id}).fullname} " حذف`,
-      text: "هل أنت متأكد من تسجيل الخروج ؟",
+      title: ` !  احذف مستخدم `,
+      text: `؟ " ${admins.find((a)=>{return a.idadmin===id}).fullname} " أ متأكد من حذف `,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -101,7 +101,7 @@ const idAdmin = getIdAdminFromToken; */
 }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex sm:flex-col md:flex-auto  items-center justify-center p-4">
       <Navbar />
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Admin Form Section */}
@@ -191,7 +191,7 @@ const idAdmin = getIdAdminFromToken; */
         {/* Scrollable Admin List Section */}
         <div className="w-1/2 p-6 bg-gray-100 overflow-y-auto max-h-screen">
           
-          <h2 className="text-2xl font-bold mb-4 text-end" id="title2">مجمل الأدمينز</h2>
+          <h2 className="text-2xl font-bold mb-4 text-end" id="title2">مجمل المشرفين</h2>
           
           <ul className="space-y-2">
             {admins.map((admin) => (

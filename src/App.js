@@ -15,7 +15,8 @@ import VisiteDetail from "./Visitedetails";
 import Notfound from "./page/Notfound";
 import { Alert } from "react-bootstrap";
 import Alerttest from "./page/Testalerts";
-
+import Selectcomponent from "./page/select";
+import SchoolGallery from "./page/afficher/SchoolGallery";
 const App = () => {
     return (
         <Router>
@@ -34,7 +35,8 @@ const App = () => {
                 <Route path="/Visitedetails/:idvisite/:idecole" element={<VisiteDetail />} />
                 <Route path='*' element={<Notfound/>} />
                 <Route path='/Alerttest' element={<Alerttest/>} />
-                
+                <Route path='/select' element={<Selectcomponent/>} />
+                <Route path="/school-gallery/:idecole" element={<SchoolGallery />} />
                 
             </Routes>
         </Router>
